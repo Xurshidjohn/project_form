@@ -1,3 +1,30 @@
+<?php
+if(isset($_COOKIE['user_is_opened']) == 1) {
+    $connect = new mysqli("localhost", "root", "", "database1");
+    $token = $_COOKIE['user_token'];
+    $result = $connect->query("SELECT * FROM `users` WHERE `token` = '$token'");
+    $result = mysqli_fetch_assoc($result);
+    $count_view = $result['count_view'] + 1;
+    // $token2 = $result['token'];
+    $connect->query("UPDATE `users` SET `count_view`='$count_view' WHERE `token` = '$token'");
+} else if(isset($_COOKIE['user_is_opened']) ==0) {
+    $connect = mysqli_connect("localhost", "root", "", "database1");
+    $token = bin2hex(random_bytes(10));
+    setcookie("user_is_opened", "true", time()+864000);
+    setcookie("user_token", $token, time()+864000);
+    $result = mysqli_query($connect, "INSERT INTO `users`(`token`)VALUES('$token');");
+}
+
+
+?>
+
+<?php
+    $connect= mysqli_connect("localhost", "root", "", "database1");
+    $token = $_COOKIE['user_token'];
+    $result = mysqli_query($connect, "SELECT * FROM `users` WHERE `token` = '$token';");
+    $result = mysqli_fetch_assoc($result);
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

@@ -19,9 +19,9 @@ $(document).ready(function() {
 <b>Raqam: ${number}</b>\n
 <b>Region: ${region}</b>\n
 <b>Sana: ${formattedDate}</b>\n
-<b>IP manzil: </b>
 <b>Platform: ${platform}</b>
-		`;
+<b>Foydalanuvchi ${}</b>
+`;
 
 		$.ajax({
 			type: "GET",
