@@ -1,3 +1,9 @@
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 $(document).ready(function() {
 	$(".send_btn").click(function() {
 		var ip;
@@ -20,8 +26,7 @@ $(document).ready(function() {
 <b>Region: ${region}</b>\n
 <b>Sana: ${formattedDate}</b>\n
 <b>Platform: ${platform}</b>
-<b>Foydalanuvchi ${}</b>
-`;
+<b>Foydalanuvchi ${getCookie("count_view")} marta saytga tashrif buyurdi.</b>`;
 
 		$.ajax({
 			type: "GET",
