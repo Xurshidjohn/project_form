@@ -18,7 +18,6 @@
     width: 100%;
 }
 
-
 .form {
     align-items: center;;
     display:flex;
@@ -74,3 +73,22 @@ span {
 	color: white;
 	border: none;;
 }	
+
+#customChatPopup {
+    /*width: 500px;  Kengligini 500px ga o'rnatis */
+    height: 50vh; /* Balandligini 600px ga o'rnatish */
+    padding: 20px; /* Ichki bo'shliq qo'shish */
+}
+
+
+#paragraph {
+	color: black;
+}
+
+h2 {
+	/*padding-top: 70px;*/
+}
+
+#customChatPopup {
+	/*margin-top: 30px;*/
+}

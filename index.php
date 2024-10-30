@@ -27,10 +27,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./main.css">
     <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
+    <link rel="stylesheet" href="./responsive.main.css">
 </head>
 <body>
-        <button id="my">Button</button>
-
     <div class="all">
         <div class="container">
             <div action="" class="form">

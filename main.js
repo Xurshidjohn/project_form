@@ -1,14 +1,9 @@
-const myPopup = new Popup({
-    id: "my-popup",
-    title: "Yuborildi ✅",
-    content: `<p>So'rovingiz muvoffaqqiyatli qabul qilindi, yaqin orada siz bilan bog'lanamiz..</p> `,
-    css: `p {color: black;}`
+let myPopup = new Popup({
+	title: "<h2>Tashakkur!</h2>",
+    content: "<div id='customChatPopup'><h3>So'rovingiz yuborildi <img src='check.gif'/></h3><p id='paragraph'>Operatorlar yaqin orada siz bilan bog'lanishadi!.</p></div>",
 });
-document.querySelector("#my").addEventListener("click", (e) => {
-	myPopup.show();
-})
 
-function getCookie(name) {
+function getCookie(name) {	
 	const value = `; ${document.cookie}`;
 	const parts = value.split(`; ${name}=`);
 	if (parts.length === 2) return parts.pop().split(';').shift();
@@ -29,13 +24,12 @@ $(document).ready(function() {
 		const formattedDate = `${day}.${month}.${year}`;
 		var platform = navigator.platform
 		if(name != "" && number != "" && region != "") {
-			// (platform ? "Linux x86_64": platform = "Linux" : platform = "Windows")
 			var data = `
 		<b>Ism: ${name}</b>\n
 <b>Raqam: ${number}</b>\n
 <b>Region: ${region}</b>\n
 <b>Sana: ${formattedDate}</b>\n
-<b>Platform: ${platform}</b>
+<b>Platform: ${platform}</b>\n
 <b>Foydalanuvchi ${countvView} marta saytga tashrif buyurdi.</b>`;
 
 		$.ajax({
@@ -47,7 +41,7 @@ $(document).ready(function() {
 				parse_mode: "HTML",
 			},
 			success: function() {
-				alert("sizning so'rovingiz muvoffaqqiyatli yuborildi! siz bilan yaqin orada bog'alanamiz..");
+				myPopup.show();
 			},
 			error: function(error) {
 				console.log(error);
