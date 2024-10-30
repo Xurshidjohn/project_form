@@ -1,28 +1,22 @@
 <?php
-if(isset($_COOKIE['user_is_opened']) == 1) {
-    $connect = new mysqli("localhost", "root", "", "database1");
-    $token = $_COOKIE['user_token'];
-    $result = $connect->query("SELECT * FROM `users` WHERE `token` = '$token'");
-    $result = mysqli_fetch_assoc($result);
-    $count_view = $result['count_view'] + 1;
-    print($count_view);
-    setcookie("count_view", $count_view, time()+864000);
-    if(!$_COOKIE['count_view']) {
-        echo "<script>window.location.reload()</script>";
-        setcookie("count_view", $count_view, time()+864000);
+
+    if(isset($_COOKIE['is_opened'])) {
+        $connect = new PDO("sqlite:main.db");
+        $token = $_COOKIE['user_token'];
+        $result = $connect->query("SELECT count_view FROM `users` WHERE `token` = '$token'");
+        foreach($result as $row) {$data = $row;};
+        $count_view = $data[0] + 1;
+        $connect->query("UPDATE `users` SET count_view = '$count_view' WHERE `token` = '$token'");
+        setcookie("view_count", $count_view, time()+864000);
+    } else if(!isset($_COOKIE['is_opened'])) {
+        $token = bin2hex(random_bytes(16));
+        setcookie("user_token", $token, time()+864000);
+        setcookie("is_opened", "true", time()+864000);
+        setcookie("view_count", "0", time()+864000);
+        $connect = new PDO("sqlite:main.db");
+        $connect->query("INSERT INTO `users`(`token`)VALUES('$token')");
     }
-    $connect->query("UPDATE `users` SET `count_view`='$count_view' WHERE `token` = '$token'");
-} else if(isset($_COOKIE['user_is_opened']) ==0) {
-    $connect = mysqli_connect("localhost", "root", "", "database1");
-    $token = bin2hex(random_bytes(10));
-    $count_view = 1;
-    setcookie("count_view", $count_view, time()+864000);
-    setcookie("user_is_opened", "true", time()+864000);
-    setcookie("user_token", $token, time()+864000);
-    $result = mysqli_query($connect, "INSERT INTO `users`(`token`)VALUES('$token');");
-}
-
-
+    
 ?>
 
 <html lang="en">
@@ -32,8 +26,10 @@ if(isset($_COOKIE['user_is_opened']) == 1) {
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./main.css">
+    <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
 </head>
 <body>
+        <button id="my">Button</button>
 
     <div class="all">
         <div class="container">
@@ -67,4 +63,6 @@ if(isset($_COOKIE['user_is_opened']) == 1) {
     
 </body>
 <script src="./main.js"></script>
+<script type="text/javascript">
+</script>
 </html>
